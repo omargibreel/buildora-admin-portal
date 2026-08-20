@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -290,7 +291,7 @@ export class LoginComponent {
         this.isLoading.set(false);
         let msg: string;
         if (err.status === 0) {
-          msg = 'Could not reach the Buildora API at http://localhost:5238. Make sure the API is running.';
+          msg = `Could not reach the Buildora API at ${environment.apiUrl}. Make sure the API is running and CORS is configured.`;
         } else if (err.error?.message) {
           msg = err.error.message;
         } else if (err.status === 401 || err.status === 403) {

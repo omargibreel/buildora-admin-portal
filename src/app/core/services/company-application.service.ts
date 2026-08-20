@@ -8,13 +8,14 @@ import {
   PagedResult,
   RejectPayload
 } from '../models/application.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyApplicationService {
   private readonly http = inject(HttpClient);
-  private readonly API_ORIGIN = 'http://localhost:5238';
+  private readonly API_ORIGIN = environment.apiUrl;
   private readonly API_BASE = `${this.API_ORIGIN}/api/admin/company-applications`;
 
   /**
