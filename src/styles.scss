@@ -1,0 +1,178 @@
+@use './styles/tokens' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  color: var(--color-primary-900);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Button Component Utilities */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background-color: var(--color-primary-500);
+  color: #FFFFFF;
+  border-color: var(--color-primary-600);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-600);
+    box-shadow: 0 4px 12px rgba(100, 57, 81, 0.25);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--color-primary-700);
+  border-color: var(--color-neutral-300);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-50);
+    border-color: var(--color-primary-300);
+  }
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: #FFFFFF;
+
+  &:hover:not(:disabled) {
+    background-color: #256628;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-danger {
+  background-color: var(--color-accent-500);
+  color: #FFFFFF;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-accent-600);
+    box-shadow: 0 4px 12px rgba(201, 123, 74, 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  color: var(--color-error);
+  border-color: var(--color-error-border);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-error-bg);
+  }
+}
+
+/* Card Utility */
+.admin-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+}
+
+/* Form Controls */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary-800);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px rgba(100, 57, 81, 0.12);
+  }
+
+  &::placeholder {
+    color: var(--color-neutral-400);
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}

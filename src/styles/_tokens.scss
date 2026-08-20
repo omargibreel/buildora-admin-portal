@@ -1,0 +1,77 @@
+:root {
+  /* Brand Plum Hierarchy */
+  --color-primary-50: #F6EEF2;
+  --color-primary-100: #E8D3DD;
+  --color-primary-200: #CFA8BA;
+  --color-primary-300: #AC7C93;
+  --color-primary-400: #895B72;
+  --color-primary-500: #643951;
+  --color-primary-600: #522E42;
+  --color-primary-700: #402434;
+  --color-primary-800: #2E1A25;
+  --color-primary-900: #1C1017;
+
+  /* Brand Cream Palette */
+  --color-cream-50: #FFFDF3;
+  --color-cream-100: #FFFAE0;
+  --color-cream-200: #FFF8CB;
+  --color-cream-300: #FFF0A3;
+  --color-cream-400: #FFE470;
+
+  /* Accent Terracotta */
+  --color-accent-500: #C97B4A;
+  --color-accent-600: #A8613A;
+
+  /* Neutrals */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-50: #FAF8F7;
+  --color-neutral-100: #F1ECEC;
+  --color-neutral-200: #E4DCDE;
+  --color-neutral-300: #C9C0C2;
+  --color-neutral-400: #AA9FA2;
+  --color-neutral-500: #8B7F82;
+  --color-neutral-700: #4A3F42;
+  --color-neutral-900: #221C1E;
+
+  /* Semantic Feedback */
+  --color-success: #2E7D32;
+  --color-success-bg: #EDF7ED;
+  --color-success-border: #B7DFB9;
+  
+  --color-warning: #B26A00;
+  --color-warning-bg: #FFF8E1;
+  --color-warning-border: #FFE082;
+  
+  --color-error: #C62828;
+  --color-error-bg: #FFEBEE;
+  --color-error-border: #FFCDD2;
+  
+  --color-info: #1565C0;
+  --color-info-bg: #E3F2FD;
+  --color-info-border: #BBDEFB;
+
+  /* Layout Roles */
+  --color-bg: var(--color-neutral-50);
+  --color-bg-card: #FFFFFF;
+  --color-text: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-500);
+  --color-border: rgba(100, 57, 81, 0.12);
+  --color-border-hover: rgba(100, 57, 81, 0.28);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(34, 28, 30, 0.05), 0 1px 2px rgba(34, 28, 30, 0.03);
+  --shadow-md: 0 4px 12px rgba(34, 28, 30, 0.08);
+  --shadow-lg: 0 12px 32px rgba(100, 57, 81, 0.12);
+  --shadow-xl: 0 20px 48px rgba(100, 57, 81, 0.18);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: all 0.15s ease-in-out;
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
