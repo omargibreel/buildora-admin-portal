@@ -21,7 +21,15 @@ export class AuthService {
 
   readonly token = computed(() => this._token());
   readonly currentUser = computed(() => this._currentUser());
-  readonly isAuthenticated = computed(() => !!this._token());
+  readonly isAuthenticated = computed(() => {
+    const t = this._token();
+    if (!t) return false;
+    if (this.isTokenExpired(t)) {
+      this.clearSession();
+      return false;
+    }
+    return true;
+  });
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}/login`, credentials).pipe(
@@ -37,26 +45,61 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return this._token();
+    const t = this._token();
+    if (t && this.isTokenExpired(t)) {
+      this.clearSession();
+      return null;
+    }
+    return t;
+  }
+
+  isTokenExpired(token: string | null): boolean {
+    if (!token) return true;
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return false;
+      const payload = JSON.parse(atob(parts[1]));
+      if (!payload.exp) return false;
+      const now = Math.floor(Date.now() / 1000);
+      return payload.exp < now;
+    } catch {
+      return false;
+    }
   }
 
   private setSession(token: string, user: UserInfo): void {
     this._token.set(token);
     this._currentUser.set(user);
-    sessionStorage.setItem(this.TOKEN_KEY, token);
-    sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    try {
+      localStorage.setItem(this.TOKEN_KEY, token);
+      localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    } catch {
+      sessionStorage.setItem(this.TOKEN_KEY, token);
+      sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    }
   }
 
   private clearSession(): void {
     this._token.set(null);
     this._currentUser.set(null);
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    sessionStorage.removeItem(this.USER_KEY);
+    try {
+      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    } catch {}
+    try {
+      sessionStorage.removeItem(this.TOKEN_KEY);
+      sessionStorage.removeItem(this.USER_KEY);
+    } catch {}
   }
 
   private getStoredToken(): string | null {
     try {
-      return sessionStorage.getItem(this.TOKEN_KEY);
+      const token = localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
+      if (token && this.isTokenExpired(token)) {
+        this.clearSession();
+        return null;
+      }
+      return token;
     } catch {
       return null;
     }
@@ -64,7 +107,7 @@ export class AuthService {
 
   private getStoredUser(): UserInfo | null {
     try {
-      const data = sessionStorage.getItem(this.USER_KEY);
+      const data = localStorage.getItem(this.USER_KEY) || sessionStorage.getItem(this.USER_KEY);
       return data ? JSON.parse(data) : null;
     } catch {
       return null;

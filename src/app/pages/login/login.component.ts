@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { environment } from '../../../environments/environment';
@@ -226,6 +226,7 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly toast = inject(ToastService);
 
   loginForm: FormGroup = this.fb.group({
@@ -254,7 +255,8 @@ export class LoginComponent {
       next: () => {
         this.isLoading.set(false);
         this.toast.success('Welcome back', 'Signed in successfully.');
-        this.router.navigate(['/applications']);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/applications';
+        this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
         this.isLoading.set(false);
