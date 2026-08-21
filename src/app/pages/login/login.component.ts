@@ -41,7 +41,7 @@ import { environment } from '../../../environments/environment';
                 type="email"
                 class="form-control"
                 formControlName="email"
-                placeholder="admin@buildora.com"
+                placeholder="Enter admin email"
                 autocomplete="email"
               />
               <span *ngIf="isInvalid('email')" class="error-msg">Valid admin email is required.</span>
@@ -55,7 +55,7 @@ import { environment } from '../../../environments/environment';
                 type="password"
                 class="form-control"
                 formControlName="password"
-                placeholder="••••••••••••"
+                placeholder="Enter password"
                 autocomplete="current-password"
               />
               <span *ngIf="isInvalid('password')" class="error-msg">Password is required.</span>
@@ -71,12 +71,6 @@ import { environment } from '../../../environments/environment';
               <span>{{ isLoading() ? 'Signing in...' : 'Sign In to Review Portal' }}</span>
             </button>
           </form>
-
-          <!-- Seed Credentials Quick Hint for Dev -->
-          <div class="credentials-hint">
-            <div class="hint-title">Default Seed Admin Credentials:</div>
-            <code>admin&#64;buildora.com</code> / <code>Admin&#64;Buildora2026!</code>
-          </div>
         </div>
 
         <div class="login-footer">
@@ -217,31 +211,6 @@ import { environment } from '../../../environments/environment';
       animation: spin 0.6s linear infinite;
     }
 
-    .credentials-hint {
-      margin-top: 1.5rem;
-      padding: 0.75rem 1rem;
-      background: var(--color-neutral-50);
-      border: 1px dashed var(--color-primary-200);
-      border-radius: var(--radius-md);
-      font-size: 0.78rem;
-      color: var(--color-neutral-700);
-
-      .hint-title {
-        font-weight: 700;
-        color: var(--color-primary-800);
-        margin-bottom: 0.25rem;
-      }
-
-      code {
-        font-weight: 700;
-        color: var(--color-primary-600);
-        background: #FFFFFF;
-        padding: 0.15rem 0.35rem;
-        border-radius: 4px;
-        border: 1px solid var(--color-neutral-200);
-      }
-    }
-
     .login-footer {
       text-align: center;
       font-size: 0.78rem;
@@ -260,8 +229,8 @@ export class LoginComponent {
   private readonly toast = inject(ToastService);
 
   loginForm: FormGroup = this.fb.group({
-    email: ['admin@buildora.com', [Validators.required, Validators.email]],
-    password: ['Admin@Buildora2026!', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
 
   isLoading = signal(false);
